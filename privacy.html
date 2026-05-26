@@ -40,19 +40,19 @@
     .mic-note { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px; padding: 14px 16px; margin-top: 10px; font-size: 14px; color: #9a3412; }
     a { color: #7C6EF7; }
     footer { text-align: center; color: #999; font-size: 13px; padding-bottom: 32px; }
-    /* Default: show TR */
+    /* Default: show EN */
     .lang-content { display: none; }
     .lang-content.active { display: block; }
-    #lang-tr { display: block; }
+    #lang-en { display: block; }
     /* CSS :target — works without JavaScript */
-    #lang-en:target,
+    #lang-tr:target,
     #lang-de:target { display: block; }
-    body:has(#lang-en:target) #lang-tr,
-    body:has(#lang-de:target) #lang-tr { display: none; }
+    body:has(#lang-tr:target) #lang-en,
+    body:has(#lang-de:target) #lang-en { display: none; }
     /* Active button highlight via :target */
-    body:has(#lang-en:target) .btn-tr,
-    body:has(#lang-de:target) .btn-tr { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
-    body:has(#lang-en:target) .btn-en,
+    body:has(#lang-tr:target) .btn-en,
+    body:has(#lang-de:target) .btn-en { background: transparent !important; color: #fff !important; border-color: rgba(255,255,255,0.6) !important; }
+    body:has(#lang-tr:target) .btn-tr,
     body:has(#lang-de:target) .btn-de { background: #fff !important; color: #7C6EF7 !important; border-color: #fff !important; }
   </style>
 </head>
@@ -60,10 +60,10 @@
 
 <header>
   <h1>🗂 Filo</h1>
-  <p id="header-sub">Gizlilik Politikası</p>
+  <p id="header-sub">Privacy Policy</p>
   <div class="lang-switch">
-    <a href="#lang-tr"><button class="btn-tr active">Türkçe</button></a>
-    <a href="#lang-en"><button class="btn-en">English</button></a>
+    <a href="#lang-tr"><button class="btn-tr">Türkçe</button></a>
+    <a href="#lang-en"><button class="btn-en active">English</button></a>
     <a href="#lang-de"><button class="btn-de">Deutsch</button></a>
   </div>
 </header>
@@ -301,7 +301,7 @@
 <script>
   const headerSubs = { tr: 'Gizlilik Politikası', en: 'Privacy Policy', de: 'Datenschutzerklärung' };
   function setLang(lang, updateUrl) {
-    if (!['tr','en','de'].includes(lang)) lang = 'tr';
+    if (!['tr','en','de'].includes(lang)) lang = 'en';
     document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
     const target = document.getElementById('lang-' + lang);
     if (target) target.classList.add('active');
