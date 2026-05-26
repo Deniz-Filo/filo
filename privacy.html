@@ -40,8 +40,20 @@
     .mic-note { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px; padding: 14px 16px; margin-top: 10px; font-size: 14px; color: #9a3412; }
     a { color: #7C6EF7; }
     footer { text-align: center; color: #999; font-size: 13px; padding-bottom: 32px; }
+    /* Default: show TR */
     .lang-content { display: none; }
     .lang-content.active { display: block; }
+    #lang-tr { display: block; }
+    /* CSS :target — works without JavaScript */
+    #lang-en:target,
+    #lang-de:target { display: block; }
+    body:has(#lang-en:target) #lang-tr,
+    body:has(#lang-de:target) #lang-tr { display: none; }
+    /* Active button highlight via :target */
+    body:has(#lang-en:target) .btn-tr,
+    body:has(#lang-de:target) .btn-tr { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
+    body:has(#lang-en:target) .btn-en,
+    body:has(#lang-de:target) .btn-de { background: #fff !important; color: #7C6EF7 !important; border-color: #fff !important; }
   </style>
 </head>
 <body>
@@ -50,9 +62,9 @@
   <h1>🗂 Filo</h1>
   <p id="header-sub">Gizlilik Politikası</p>
   <div class="lang-switch">
-    <button class="active" onclick="setLang('tr')">Türkçe</button>
-    <button onclick="setLang('en')">English</button>
-    <button onclick="setLang('de')">Deutsch</button>
+    <a href="#lang-tr"><button class="btn-tr active">Türkçe</button></a>
+    <a href="#lang-en"><button class="btn-en">English</button></a>
+    <a href="#lang-de"><button class="btn-de">Deutsch</button></a>
   </div>
 </header>
 
@@ -304,10 +316,12 @@
     url.searchParams.set('lang', lang);
     history.replaceState(null, '', url.toString());
   }
-  // Auto-detect language from URL query (?lang=en) or hash (#en)
+  // Auto-detect language from URL: ?lang=en or #lang-en or #en
   function _initLang() {
     const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang') || window.location.hash.replace('#','').trim();
+    const fromQuery = params.get('lang');
+    const fromHash = window.location.hash.replace('#lang-','').replace('#','').trim();
+    const lang = fromQuery || fromHash;
     if (lang && ['tr','en','de'].includes(lang)) setLang(lang);
   }
   if (document.readyState === 'loading') {
