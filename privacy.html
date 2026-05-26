@@ -40,20 +40,9 @@
     .mic-note { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px; padding: 14px 16px; margin-top: 10px; font-size: 14px; color: #9a3412; }
     a { color: #7C6EF7; }
     footer { text-align: center; color: #999; font-size: 13px; padding-bottom: 32px; }
-    /* Default: show EN */
+    /* Language switching — JS controls via .active class */
     .lang-content { display: none; }
     .lang-content.active { display: block; }
-    #lang-en { display: block; }
-    /* CSS :target — works without JavaScript */
-    #lang-tr:target,
-    #lang-de:target { display: block; }
-    body:has(#lang-tr:target) #lang-en,
-    body:has(#lang-de:target) #lang-en { display: none; }
-    /* Active button highlight via :target */
-    body:has(#lang-tr:target) .btn-en,
-    body:has(#lang-de:target) .btn-en { background: transparent !important; color: #fff !important; border-color: rgba(255,255,255,0.6) !important; }
-    body:has(#lang-tr:target) .btn-tr,
-    body:has(#lang-de:target) .btn-de { background: #fff !important; color: #7C6EF7 !important; border-color: #fff !important; }
   </style>
 </head>
 <body>
