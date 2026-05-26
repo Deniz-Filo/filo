@@ -291,17 +291,26 @@
   function setLang(lang) {
     if (!['tr','en','de'].includes(lang)) lang = 'tr';
     document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('lang-' + lang).classList.add('active');
+    const target = document.getElementById('lang-' + lang);
+    if (target) target.classList.add('active');
     document.querySelectorAll('.lang-switch button').forEach((btn, i) => {
       btn.classList.toggle('active', ['tr','en','de'][i] === lang);
     });
-    document.getElementById('header-sub').textContent = headerSubs[lang];
+    const sub = document.getElementById('header-sub');
+    if (sub) sub.textContent = headerSubs[lang];
     document.documentElement.lang = lang;
   }
-  // Auto-detect language from URL: ?lang=en or #en
-  const _urlLang = new URLSearchParams(window.location.search).get('lang')
-    || window.location.hash.replace('#','');
-  if (_urlLang) setLang(_urlLang);
+  // Auto-detect language from URL query (?lang=en) or hash (#en)
+  function _initLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang') || window.location.hash.replace('#','').trim();
+    if (lang && ['tr','en','de'].includes(lang)) setLang(lang);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _initLang);
+  } else {
+    _initLang();
+  }
 </script>
 
 </body>
