@@ -71,7 +71,7 @@
 <div class="container">
 
   <!-- ── TÜRKÇE ── -->
-  <div class="lang-content active" id="lang-tr">
+  <div class="lang-content" id="lang-tr">
 
     <div class="section">
       <span class="badge">Özet</span>
@@ -322,7 +322,7 @@
     const fromQuery = params.get('lang');
     const fromHash = window.location.hash.replace('#lang-','').replace('#','').trim();
     const lang = fromQuery || fromHash;
-    if (lang && ['tr','en','de'].includes(lang)) setLang(lang);
+    setLang(['tr','en','de'].includes(lang) ? lang : 'en');
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', _initLang);
@@ -332,5 +332,4 @@
 </script>
 
 </body>
-  
 </html>
