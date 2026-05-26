@@ -298,8 +298,9 @@
     document.getElementById('header-sub').textContent = headerSubs[lang];
     document.documentElement.lang = lang;
   }
-  // Auto-detect language from URL: ?lang=en
-  const _urlLang = new URLSearchParams(window.location.search).get('lang');
+  // Auto-detect language from URL: ?lang=en or #en
+  const _urlLang = new URLSearchParams(window.location.search).get('lang')
+    || window.location.hash.replace('#','');
   if (_urlLang) setLang(_urlLang);
 </script>
 
