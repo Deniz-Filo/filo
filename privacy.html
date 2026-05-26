@@ -289,6 +289,7 @@
 <script>
   const headerSubs = { tr: 'Gizlilik Politikası', en: 'Privacy Policy', de: 'Datenschutzerklärung' };
   function setLang(lang) {
+    if (!['tr','en','de'].includes(lang)) lang = 'tr';
     document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
     document.getElementById('lang-' + lang).classList.add('active');
     document.querySelectorAll('.lang-switch button').forEach((btn, i) => {
@@ -297,6 +298,9 @@
     document.getElementById('header-sub').textContent = headerSubs[lang];
     document.documentElement.lang = lang;
   }
+  // Auto-detect language from URL: ?lang=en
+  const _urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (_urlLang) setLang(_urlLang);
 </script>
 
 </body>
